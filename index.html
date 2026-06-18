@@ -3,52 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পুনর্মিলনী ২০২৭ - পেমেন্ট ও রেজিস্ট্রেশন</title>
+    <title>স্কুল পুনর্মিলনী ২০২৭ - রেজিস্ট্রেশন</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
-                        url('https://picsum.photos/id/10/1200/800') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), 
+                        url('https://picsum.photos/id/122/1200/800') no-repeat center center fixed; /* স্কুলের ছবির জায়গায় এটি থাকবে */
+            background-size: cover; color: white; margin: 0; padding: 0; text-align: center;
         }
-        .container { max-width: 600px; margin: 40px auto; padding: 20px; }
-        .logo-box { width: 100px; height: 100px; background-color: white; border-radius: 50%; margin: 0 auto 20px; display: flex; justify-content: center; align-items: center; }
-        .logo-box img { width: 80px; }
-        h1 { font-size: 26px; margin-bottom: 5px; }
-        .subtitle { font-size: 22px; color: #4ade80; font-weight: bold; margin-top: 0; }
+        .container { max-width: 650px; margin: 20px auto; padding: 20px; }
         
-        /* কাউন্টডাউন টাইমার */
-        .timer-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .time-box { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 15px; border-radius: 15px; width: 70px; }
-        .time-number { font-size: 24px; font-weight: bold; }
-        .time-label { font-size: 12px; color: #a7f3d0; }
+        /* লোগো ও স্কুলের ছবি সেকশন */
+        .school-header { margin-bottom: 20px; }
+        .logo-box { width: 90px; height: 90px; background-color: white; border-radius: 50%; margin: 0 auto 10px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 3px solid #4ade80; }
+        .logo-box img { width: 70px; } /* এখানে আপনার লোগো বসাবেন */
+        
+        h1 { font-size: 24px; margin: 5px 0; }
+        .subtitle { font-size: 20px; color: #4ade80; font-weight: bold; }
+        
+        /* টাইমার */
+        .timer-container { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
+        .time-box { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 10px; border-radius: 10px; width: 60px; }
+        .time-number { font-size: 20px; font-weight: bold; }
+        .time-label { font-size: 10px; color: #a7f3d0; }
 
-        /* ফর্ম স্টাইল */
-        .reg-form { background: rgba(0, 0, 0, 0.7); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); text-align: left; margin-top: 20px; }
+        /* ফরম ডিজাইন */
+        .reg-form { background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); text-align: left; backdrop-filter: blur(10px); }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #a7f3d0; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border-radius: 8px; border: none; box-sizing: border-box; font-size: 16px; }
-        .submit-btn { width: 100%; background: #16a34a; color: white; padding: 12px; border: none; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #a7f3d0; font-size: 14px; }
+        input, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 15px; }
         
-        /* আইডি কার্ড স্টাইল (শুরুতে লুকানো থাকবে) */
-        #id-card { display: none; background: white; color: black; padding: 25px; border-radius: 15px; max-width: 400px; margin: 30px auto; text-align: center; border: 4px double #16a34a; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-        .user-preview-img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin: 15px 0; border: 3px solid #16a34a; }
-        .barcode { font-family: 'Libre Barcode 39', Arial; font-size: 42px; margin-top: 15px; letter-spacing: 2px; }
-        .print-btn { background: #0284c7; color: white; padding: 10px 20px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        /* পেমেন্ট বাটন */
+        .pay-info-btn { background: #facc15; color: black; padding: 8px 15px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 10px; font-size: 13px; }
+        #merchant-box { display: none; background: #fff; color: #000; padding: 10px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #16a34a; }
+
+        .submit-btn { width: 100%; background: #16a34a; color: white; padding: 15px; border: none; border-radius: 30px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .submit-btn:hover { background: #15803d; transform: scale(1.02); }
+
+        /* লুকানো ফ্যামিলি মেম্বার অপশন */
+        #family-details { display: none; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 10px; }
+
+        /* আইডি কার্ড */
+        #id-card { display: none; background: white; color: black; padding: 30px; border-radius: 15px; max-width: 450px; margin: 30px auto; text-align: center; border: 5px solid #16a34a; position: relative; }
+        .user-photo { width: 130px; height: 130px; border-radius: 10px; object-fit: cover; border: 3px solid #16a34a; margin-bottom: 15px; }
+        .card-header { background: #16a34a; color: white; padding: 10px; margin: -30px -30px 20px -30px; border-radius: 10px 10px 0 0; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-content">
-        <div class="logo-box"><img src="https://img.icons8.com/education" alt="Logo"></div>
-        <h1>পেকখালী হাজী এস এন জামান হাই স্কুল</h1>
-        <p class="subtitle">পুনর্মিলনী - ২০২৭ রেজিস্ট্রেশন</p>
+    <div class="container" id="main-ui">
+        <div class="school-header">
+            <div class="logo-box">
+                <img src="https://img.icons8.com/color/96/graduation-cap.png" alt="School Logo">
+            </div>
+            <h1>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h1>
+            <p class="subtitle">পুনর্মিলনী উৎসব ২০২৭</p>
+        </div>
 
         <div class="timer-container">
             <div class="time-box"><div class="time-number" id="days">00</div><div class="time-label">দিন</div></div>
@@ -57,90 +69,140 @@
             <div class="time-box"><div class="time-number" id="seconds">00</div><div class="time-label">সেকেন্ড</div></div>
         </div>
 
-        <form class="reg-form" id="registrationForm" onsubmit="generateCard(event)">
-            <h3 style="text-align: center; color: #4ade80; margin-top: 0;">📝 রেজিস্ট্রেশন ফরম</h3>
+        <form class="reg-form" id="regForm" onsubmit="handleRegistration(event)">
+            
             <div class="form-group">
-                <label>আপনার নাম:</label>
-                <input type="text" id="userName" required placeholder="নাম লিখুন">
+                <label>আপনার পূর্ণ নাম:</label>
+                <input type="text" id="uName" required placeholder="নাম লিখুন">
             </div>
+
             <div class="form-group">
                 <label>মোবাইল নম্বর:</label>
-                <input type="tel" id="userPhone" required placeholder="017XXXXXXXX">
+                <input type="tel" id="uPhone" required placeholder="01XXXXXXXXX">
             </div>
+
             <div class="form-group">
-                <label>আপনার ছবি যুক্ত করুন:</label>
-                <input type="file" id="userPhoto" accept="image/*" required onchange="previewImage(event)">
+                <label>আপনার ছবি আপলোড করুন:</label>
+                <input type="file" id="uPhoto" accept="image/*" required onchange="loadImage(event)">
             </div>
+
             <div class="form-group">
-                <label>পেমেন্ট মাধ্যম:</label>
-                <select id="payMethod"><option>বিকাশ</option><option>নগদ</option></select>
+                <label>গেঞ্জির সাইজ (T-Shirt Size):</label>
+                <select id="tSize" required>
+                    <option value="">সাইজ বেছে নিন</option>
+                    <option value="S">S (Small)</option>
+                    <option value="M">M (Medium)</option>
+                    <option value="L">L (Large)</option>
+                    <option value="XL">XL (Extra Large)</option>
+                    <option value="XXL">XXL (Double Extra Large)</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label>সাথে কি পরিবারের সদস্য আসবে?</label>
+                <select id="hasFamily" onchange="toggleFamily()">
+                    <option value="no">না</option>
+                    <option value="yes">হ্যাঁ (সদস্য আছে)</option>
+                </select>
+            </div>
+
+            <div id="family-details">
+                <div class="form-group">
+                    <label>সদস্য সংখ্যা:</label>
+                    <input type="number" id="fCount" placeholder="কয়জন?">
+                </div>
+                <div class="form-group">
+                    <label>সম্পর্ক ও নাম (যেমন: স্ত্রী - সুলতানা):</label>
+                    <input type="text" id="fInfo" placeholder="সম্পর্ক ও নাম লিখুন">
+                </div>
+            </div>
+
+            <button type="button" class="pay-info-btn" onclick="showMerchant()">পেমেন্ট নম্বর দেখুন</button>
+            <div id="merchant-box">
+                <b>বিকাশ মার্চেন্ট: ০১৮XXXXXXXX</b><br>
+                <b>নগদ মার্চেন্ট: ০১৭XXXXXXXX</b><br>
+                <small>* পেমেন্ট অপশন ব্যবহার করে টাকা পাঠান।</small>
+            </div>
+
             <div class="form-group">
                 <label>ট্রানজেকশন আইডি (TrxID):</label>
-                <input type="text" id="trxId" required placeholder="পেমেন্ট রিসিট কোড">
+                <input type="text" id="trx" required placeholder="TrxID দিন">
             </div>
-            <button type="submit" class="submit-btn">সাবমিট ও কার্ড ডাউনলোড করুন</button>
+
+            <button type="submit" class="submit-btn">রেজিস্ট্রেশন সম্পন্ন করুন</button>
         </form>
     </div>
 
     <div id="id-card">
-        <h2 style="margin: 0; color: #15803d; font-size: 20px;">অফিশিয়াল প্রবেশপত্র</h2>
-        <p style="font-size: 12px; margin: 2px 0;">পেকখালী হাজী এস এন জামান হাই স্কুল</p>
-        <img id="card-img" class="user-preview-img" src="" alt="User Photo">
-        <h3 id="card-name" style="margin: 5px 0 0 0;"></h3>
-        <p id="card-phone" style="margin: 5px 0; color: #555;"></p>
-        <p style="margin: 5px 0; font-size: 14px;">পেমেন্ট স্ট্যাটাস: <b style="color: green;">সফল (Paid)</b></p>
-        
-        <img id="barcode-img" src="" style="margin-top: 10px; width: 200px;" alt="Barcode">
+        <div class="card-header">
+            <h2 style="margin: 0; font-size: 18px;">পুনর্মিলনী প্রবেশপত্র ২০২৭</h2>
+            <small>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</small>
+        </div>
+        <img id="res-img" class="user-photo" src="" alt="User">
+        <h2 id="res-name" style="margin: 5px 0;"></h2>
+        <p id="res-phone" style="margin: 0; color: #444;"></p>
+        <hr>
+        <div style="text-align: left; font-size: 14px; padding: 0 10px;">
+            <p>👕 গেঞ্জির সাইজ: <b id="res-size"></b></p>
+            <p>👨‍👩‍👧 ফ্যামিলি গেস্ট: <span id="res-family">নাই</span></p>
+            <p>🆔 TrxID: <span id="res-trx"></span></p>
+        </div>
+        <img id="qr-code" src="" style="width: 100px; margin-top: 10px;">
         <br>
-        <button class="print-btn" onclick="window.print()">কার্ডটি প্রিন্ট/ডাউনলোড করুন</button>
+        <button onclick="window.print()" style="margin-top: 15px; padding: 10px; cursor: pointer;">প্রিন্ট করুন</button>
     </div>
 
     <script>
-        // ১. অটোমেটিক লাইভ টাইমার কোড (১২ মার্চ ২০২৭ এর জন্য)
-        const targetDate = new Date("March 12, 2027 11:00:00").getTime();
-        setInterval(function() {
+        // ১. টাইমার সেটআপ
+        const eventDate = new Date("March 12, 2027 11:00:00").getTime();
+        setInterval(() => {
             const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = d;
-            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
+            const diff = eventDate - now;
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
         }, 1000);
 
-        // ২. ছবি প্রাকদর্শন (Image Preview)
-        let imageSrc = "";
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function() { imageSrc = reader.result; }
-            reader.readAsDataURL(event.target.files[0]);
+        // ২. ফ্যামিলি অপশন দেখানো
+        function toggleFamily() {
+            const val = document.getElementById("hasFamily").value;
+            document.getElementById("family-details").style.display = (val === "yes") ? "block" : "none";
         }
 
-        // ৩. সাথে সাথে আইডি কার্ড জেনারেট করার কোড
-        function generateCard(event) {
-            event.preventDefault();
-            
-            // তথ্যগুলো নেওয়া হচ্ছে
-            const name = document.getElementById("userName").value;
-            const phone = document.getElementById("userPhone").value;
-            const trx = document.getElementById("trxId").value;
+        // ৩. মার্চেন্ট বক্স দেখানো
+        function showMerchant() {
+            const box = document.getElementById("merchant-box");
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
 
-            // কার্ডে তথ্য বসানো
-            document.getElementById("card-name").innerText = name;
-            document.getElementById("card-phone").innerText = "মোবাইল: " + phone;
-            document.getElementById("card-img").src = imageSrc;
-            
-            // অনলাইন থেকে একটি ডাইনামিক বারকোড তৈরি
-            document.getElementById("barcode-img").src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + trx;
+        // ৪. ইমেজ লোডিং
+        let finalImage = "";
+        function loadImage(e) {
+            const reader = new FileReader();
+            reader.onload = () => { finalImage = reader.result; };
+            reader.readAsDataURL(e.target.files[0]);
+        }
 
-            // মূল পেজ লুকিয়ে শুধু আইডি কার্ড স্ক্রিনে দেখানো
-            document.getElementById("main-content").style.display = "none";
+        // ৫. কার্ড জেনারেশন
+        function handleRegistration(e) {
+            e.preventDefault();
+            
+            document.getElementById("res-name").innerText = document.getElementById("uName").value;
+            document.getElementById("res-phone").innerText = "ফোন: " + document.getElementById("uPhone").value;
+            document.getElementById("res-size").innerText = document.getElementById("tSize").value;
+            document.getElementById("res-trx").innerText = document.getElementById("trx").value;
+            document.getElementById("res-img").src = finalImage;
+
+            const family = document.getElementById("hasFamily").value;
+            if(family === "yes") {
+                document.getElementById("res-family").innerText = document.getElementById("fCount").value + " জন (" + document.getElementById("fInfo").value + ")";
+            }
+
+            // QR কোড (TrxID দিয়ে)
+            document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" + document.getElementById("trx").value;
+
+            document.getElementById("main-ui").style.display = "none";
             document.getElementById("id-card").style.display = "block";
         }
     </script>
