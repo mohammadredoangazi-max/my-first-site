@@ -284,6 +284,104 @@
             document.getElementById("main-ui").style.display = "none";
             document.getElementById("id-card").style.display = "block";
         }
+    <script>
+        // তোর গুগল শিটের সাকসেসফুল ওয়েব অ্যাপ লিংকটি এখানে বসানো হলো
+        const scriptUrl = "https://script.google.com/macros/s/AKfycbxdxWAOszgi9Ghuwb76ceLVHZFKMwPVTrStF1niMS7saBiLTU2GDwBoQSPbUeV8Iver/exec";
+
+        // ২০২৭ সালের ১২ই মার্চের জন্য লাইভ টাইমার
+        const eventDate = new Date("March 12, 2027 09:00:00").getTime();
+        const timerFunction = () => {
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+            if (diff > 0) {
+                document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }
+        };
+        setInterval(timerFunction, 1000);
+        timerFunction();
+
+        function toggleFamily() {
+            const val = document.getElementById("hasFamily").value;
+            document.getElementById("family-details").style.display = (val === "yes") ? "block" : "none";
+        }
+
+        function showMerchant() {
+            const box = document.getElementById("merchant-box");
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
+
+        let finalImage = "";
+        function loadImage(e) {
+            const reader = new FileReader();
+            reader.onload = () => { finalImage = reader.result; };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        function handleRegistration(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById("subBtn");
+            btn.disabled = true;
+            btn.innerText = "প্রসেসিং হচ্ছে, দয়া করে অপেক্ষা করুন...";
+
+            const name = document.getElementById("uName").value;
+            const batch = document.getElementById("uBatch").value;
+            const group = document.getElementById("uGroup").value;
+            const religion = document.getElementById("uReligion").value;
+            const phone = document.getElementById("uPhone").value;
+            const trxId = document.getElementById("trx").value;
+            const size = document.querySelector('input[name="tSize"]:checked').value;
+            const familyOpt = document.getElementById("hasFamily").value;
+            
+            let familyDetails = "নাই";
+            if(familyOpt === "yes") {
+                familyDetails = document.getElementById("fCount").value + " জন (" + document.getElementById("fInfo").value + ")";
+            }
+
+            // গুগল শিটে ডেটা পাঠানোর অবজেক্ট
+            const formData = {
+                name: name,
+                batch: batch,
+                phone: phone,
+                group: group,
+                religion: religion,
+                tshirt: size,
+                family: familyDetails,
+                trxid: trxId
+            };
+
+            // API কল করে গুগল শিটে ডেটা পাঠানো
+            fetch(scriptUrl, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                // কার্ডে ডেটা দেখানো
+                document.getElementById("res-name").innerText = name;
+                document.getElementById("res-phone").innerText = "মোবাইল: " + phone;
+                document.getElementById("res-batch-group").innerText = batch + " (" + group + ")";
+                document.getElementById("res-size").innerText = size;
+                document.getElementById("res-trx").innerText = trxId;
+                document.getElementById("res-img").src = finalImage;
+                document.getElementById("res-family").innerText = familyDetails;
+                document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=" + trxId;
+
+                // ফর্ম লুকিয়ে কার্ড লাইভ করা
+                document.getElementById("main-ui").style.display = "none";
+                document.getElementById("id-card").style.display = "block";
+            })
+            .catch(err => {
+                alert("দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন!");
+                btn.disabled = false;
+                btn.innerText = "👉 বিকাশে ১,০০০/- পেমেন্ট করুন";
+                console.error(err);
+            });
+        }
     </script>
 </body>
 </html>
