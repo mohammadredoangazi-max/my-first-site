@@ -1,35 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="bn">
 <head>
-    <title>আমার সুন্দর ওয়েবসাইট</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পুনর্মিলনী ২০২৭ - পেমেন্ট পোর্টাল</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
     <style>
-        /* ওয়েবসাইট সুন্দর করার জন্য কিছু সহজ ডিজাইন (CSS) */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* হালকা নীল ব্যাকগ্রাউন্ড */
-            text-align: center;       /* সব লেখা ও ছবি মাঝখানে থাকবে */
-            padding: 50px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                        url('https://picsum.photos/id/10/1200/800') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .logo-box {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+        .logo-box img {
+            width: 80px;
+        }
+
         h1 {
-            color: #333333;
+            font-size: 26px;
+            color: #ffffff;
+            margin-bottom: 5px;
         }
-        p {
-            color: #666666;
-            font-size: 18px;
+        .subtitle {
+            font-size: 22px;
+            color: #4ade80;
+            font-weight: bold;
+            margin-top: 0;
         }
-        img {
-            border-radius: 15px;      /* ছবির কোণাগুলো একটু গোল হবে */
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.2); /* ছবির চারপাশে হালকা ছায়া */
-            margin-top: 20px;
+        .slogan {
+            font-style: italic;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+        }
+
+        .timer-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            width: 70px;
+        }
+        .time-number {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .time-label {
+            font-size: 12px;
+            color: #a7f3d0;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 15px 25px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .info-box .material-symbols-outlined {
+            color: #4ade80;
+        }
+
+        /* সবুজ রেজিস্ট্রেশন বাটন */
+        .reg-btn {
+            display: block;
+            background-color: #16a34a;
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 15px;
+            border-radius: 30px;
+            margin-top: 25px;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4);
+            transition: 0.3s;
+        }
+        .reg-btn:hover {
+            background-color: #15803d;
+        }
+
+        .fee-text {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #cbd5e1;
+        }
+        .fee-text span {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        /* পেমেন্ট নির্দেশিকা বক্স */
+        .instruction-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 35px;
+            text-align: left;
+        }
+        .instruction-card h3 {
+            margin-top: 0;
+            color: #4ade80;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
+        }
+        .instruction-card ol {
+            padding-left: 20px;
+            color: #e2e8f0;
+            line-height: 1.6;
         }
     </style>
 </head>
 <body>
 
-    <h1>স্বাগতম আমার নতুন ওয়েবসাইটে!</h1>
-    <p>আমি সফলভাবে ছবিসহ এই সাইটটি সুন্দর করে সাজিয়েছি।</p>
-    
-    <img src="https://picsum.photos/id/16/500/300" alt="সুন্দর প্রকৃতি" width="500">
+    <div class="container">
+        
+        <div class="logo-box">
+            <img src="https://img.icons8.com/education" alt="Logo">
+        </div>
+
+        <h1>পৈকখালী হাজী এস এন জামান ম্যাধমিক বিদ্যালয়</h1>
+        <p class="subtitle">পুনর্মিলনী - ২০২৭ পেমেন্ট পোর্টাল</p>
+        <p class="slogan">পুরনো স্মৃতি . নতুন বন্ধন</p>
+
+        <div class="timer-container">
+            <div class="time-box"><div class="time-number">২৬৭</div><div class="time-label">দিন</div></div>
+            <div class="time-box"><div class="time-number">০৩</div><div class="time-label">ঘণ্টা</div></div>
+            <div class="time-box"><div class="time-number">২৩</div><div class="time-label">মিনিট</div></div>
+            <div class="time-box"><div class="time-number">৩৯</div><div class="time-label">সেকেন্ড</div></div>
+        </div>
+
+        <div class="info-box">
+            <span class="material-symbols-outlined">calendar_month</span> 
+            ১২ মার্চ ২০২৭
+        </div>
+        
+        <div class="info-box">
+            <span class="material-symbols-outlined">location_on</span> 
+            স্কুল প্রাঙ্গণ
+        </div>
+        
+        <div class="info-box">
+            <span class="material-symbols-outlined">schedule</span> 
+            সকাল 09:০০ টা থেকে রাত পর্যন্ত
+        </div>
+
+        <a href="https://forms.gle/DmUSWYc78Ath9WFG8" target="_blank" class="reg-btn">এখনই রেজিস্ট্রেশন করুন</a>
+        
+        <p class="fee-text">একক রেজিস্ট্রেশন ফি: <span>১০০০/- টাকা</span></p>
+
+        <div class="instruction-card">
+            <h3>💡 পেমেন্ট ও রেজিস্ট্রেশন করার নিয়ম:</h3>
+            <ol>
+                <li>প্রথমে আপনার বিকাশ/নগদ অ্যাপে যান এবং <b>'Make Payment' (পেমেন্ট)</b> অপশনটি সিলেক্ট করুন।</li>
+                <li>আমাদের মার্চেন্ট/পেমেন্ট নম্বরটি (যেমন: ০১৭XXXXXXXX) লিখুন এবং ১০০০/- টাকা পেমেন্ট সম্পন্ন করুন।</li>
+                <li>পেমেন্ট সফল হওয়ার পর বিকাশ থেকে পাওয়া <b>TrxID (ট্রানজেকশন আইডি)</b> টি কপি করে নিন।</li>
+                <li>এবার ওপরের <b>"এখনই রেজিস্ট্রেশন করুন"</b> বাটনে ক্লিক করে ফর্মে আপনার তথ্য ও TrxID দিয়ে সাবমিট দিন।</li>
+            </ol>
+            <p style="margin-bottom: 0; font-size: 14px; color: #a7f3d0;">📞 যেকোনো প্রয়োজনে কল করুন: ০১৮XXXXXXXX</p>
+        </div>
+
+    </div>
 
 </body>
 </html>
