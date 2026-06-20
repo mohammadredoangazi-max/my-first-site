@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয় - পুনর্মিলনী ২০২৭</title>
+    <title>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয় - পুনর্মিলনী ২০২৭</title>
     
     <style>
         body {
@@ -16,7 +16,7 @@
             padding: 0;
         }
         
-        .container { max-width: 650px; margin: 30px auto; padding: 15px; }
+        .container { max-width: 650px; margin: 30px auto; padding: 15px; box-sizing: border-box; }
         
         .school-header { text-align: center; margin-bottom: 25px; }
         .logo-box { width: 110px; height: 110px; background-color: white; border-radius: 50%; margin: 0 auto 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 3px solid #4ade80; }
@@ -33,7 +33,7 @@
 
         .schedule-box { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; margin-bottom: 25px; backdrop-filter: blur(5px); }
         .schedule-title { text-align: center; color: #facc15; margin-top: 0; font-size: 18px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 8px; }
-        .schedule-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; }
+        .schedule-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; gap: 10px; }
         .schedule-time { color: #4ade80; font-weight: bold; min-width: 140px; }
         .schedule-desc { text-align: right; color: #e2e8f0; }
 
@@ -54,10 +54,10 @@
 
         #family-details { display: none; background: rgba(255,255,255,0.08); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px dashed rgba(255,255,255,0.2); }
 
-        /* --- নতুন আইডি কার্ড স্টাইল (তোর ছবির ডিজাইনের মতো) --- */
-        #id-card { display: none; max-width: 700px; margin: 40px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: white; color: black; display: flex; border: 3px solid #16a34a; }
+        /* --- আইডি কার্ড স্টাইল --- */
+        #id-card { max-width: 700px; margin: 40px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: white; color: black; display: flex; border: 3px solid #16a34a; }
         #id-card-left { flex: 2; padding: 25px; text-align: left; position: relative; }
-        #id-card-right { flex: 1; background: #166534; padding: 25px; text-align: center; color: white; border-left: 2px dashed rgba(255,255,255,0.3); }
+        #id-card-right { flex: 1; background: #166534; padding: 25px; text-align: center; color: white; border-left: 2px dashed rgba(255,255,255,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 
         .card-school-info { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
         .card-logo { width: 60px; height: 60px; border-radius: 50%; object-fit: contain; }
@@ -67,7 +67,7 @@
         .user-photo-box { text-align: center; margin-bottom: 20px; }
         .user-photo-card { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 4px solid #16a34a; }
 
-        .badge-row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .badge-row { display: flex; justify-content: space-between; margin-bottom: 20px; gap: 10px; }
         .badge-status { background: #15803d; color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
         .badge-paid { background: #facc15; color: black; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
 
@@ -77,15 +77,26 @@
         .info-label { color: #16a34a; font-weight: bold; margin: 0; }
         .info-value { color: #555; margin: 0; font-weight: 500; }
 
-        .right-header { font-size: 18px; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 1px; font-weight: bold; }
-        .qr-code-card { width: 140px; height: 140px; margin-bottom: 10px; }
+        .right-header { font-size: 18px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; font-weight: bold; margin-top: 0; }
+        .qr-code-card { width: 140px; height: 140px; margin-bottom: 10px; background: white; padding: 5px; border-radius: 5px; }
         .ticket-id { font-family: monospace; font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
-        .verified-text { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+        .verified-text { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.4; margin: 0; }
 
         .print-btn-box { text-align: center; margin-top: 20px; margin-bottom: 40px; }
         .print-btn { background: #2563eb; color: white; padding: 12px 30px; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; }
-        /* --- এন্ড নতুন আইডি কার্ড স্টাইল --- */
 
+        @media (max-width: 600px) {
+            #id-card { flex-direction: column; }
+            #id-card-right { border-left: none; border-top: 2px dashed rgba(0,0,0,0.15); padding: 30px 25px; }
+            .schedule-item { flex-direction: column; text-align: left; }
+            .schedule-desc { text-align: left; }
+        }
+        
+        @media print {
+            body { background: white !important; color: black !important; }
+            .print-btn-box { display: none; }
+            #id-card { box-shadow: none; border: 2px solid #16a34a; page-break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
@@ -95,7 +106,7 @@
             <div class="logo-box">
                 <img src="https://cdn.corenexis.com/f/4OoVZGIUdki.jpeg" alt="স্কুল লোগো">
             </div>
-            <h1>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h1>
+            <h1>পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h1>
             <p class="subtitle">ঐতিহাসিক পুনর্মিলনী উৎসব - ২০২৭</p>
             <div class="fee-badge">রেজিস্ট্রেশন ফি: ১,০০০/- টাকা (প্রতিজন)</div>
         </div>
@@ -108,13 +119,13 @@
         </div>
 
         <div class="schedule-box">
-            <h3 class="schedule-title">📅 অনুষ্ঠানের সময়সূচী ও বিবরণ</h3>
+            <h3 class="schedule-title">📅 অনুষ্ঠানের সময়সূচী ও বিবরণ</h3>
             <div class="schedule-item"><span class="schedule-time">০৯:০০ AM - ১০:০০ AM</span><span class="schedule-desc">প্রাক্তন শিক্ষার্থীদের আগমন ও কিট (গেঞ্জি) গ্রহণ</span></div>
-            <div class="schedule-item"><span class="schedule-time">১০:০০ AM - ১১:০০ AM</span><span class="schedule-desc">জাতীয় পতাকা উত্তোলন ও বর্ণাঢ্য র‍্যালি</span></div>
-            <div class="schedule-item"><span class="schedule-time">১১:০০ AM - ০১:৩০ PM</span><span class="schedule-desc">পবিত্র কোরআন তেলাওয়াত, স্মৃতিচারণ ও আলোচনা সভা</span></div>
+            <div class="schedule-item"><span class="schedule-time">১০:০০ AM - ১১:০০ AM</span><span class="schedule-desc">জাতীয় পতাকা উত্তোলন ও বর্ণাঢ্য র‍্যালি</span></div>
+            <div class="schedule-item"><span class="schedule-time">১১:০০ AM - ০১:৩০ PM</span><span class="schedule-desc">পবিত্র কোরআন তেলাওয়াত, স্মৃতিচারণ ও আলোচনা সভা</span></div>
             <div class="schedule-item"><span class="schedule-time">০১:৩০ PM - ০৩:০০ PM</span><span class="schedule-desc">যোহরের নামাজ ও ঐতিহ্যবাহী মধ্যাহ্নভোজ</span></div>
-            <div class="schedule-item"><span class="schedule-time">০৩:০০ PM - ০৫:৩০ PM</span><span class="schedule-desc">  প্রীতি আড্ডা</span></div>
-            <div class="schedule-item"><span class="schedule-time">০৫:৩০ PM - ১১:০০ PM</span><span class="schedule-desc">র‍্যাফেল ড্র, উপহার বিতরণ,মনোজ্ঞ সাংস্কৃতিক অনুষ্ঠান ও সমাপনী ঘোষণা</span></div>
+            <div class="schedule-item"><span class="schedule-time">০৩:০০ PM - ০৫:৩০ PM</span><span class="schedule-desc">প্রীতি আড্ডা</span></div>
+            <div class="schedule-item"><span class="schedule-time">০৫:৩০ PM - ১১:০০ PM</span><span class="schedule-desc">র‍্যাফেল ড্র, উপহার বিতরণ, মনোজ্ঞ সাংস্কৃতিক অনুষ্ঠান ও সমাপনী ঘোষণা</span></div>
         </div>
 
         <form class="reg-form" id="regForm" onsubmit="handleRegistration(event)">
@@ -177,12 +188,14 @@
 
             <div id="family-details">
                 <div class="form-group">
-                    <label>অতিরিক্ত সদস্য সংখ্যা (কতজন আসবে?):</label>
-                    <input type="number" id="fCount" min="1" max="10" placeholder="যেমন: ২" oninput="updatePaymentAmount()">
-                </div>
-                <div class="form-group">
-                    <label>সদস্যদের নাম ও সম্পর্ক:</label>
-                    <input type="text" id="fInfo" placeholder="যেমন: স্ত্রী - ফাতেমা, ছেলে - আবির">
+                    <label>পারিবারিক সম্পর্ক সিলেক্ট করুন *</label>
+                    <select id="fRelation" onchange="updatePaymentAmount()">
+                        <option value="">সম্পর্ক নির্ধারণ করুন</option>
+                        <option value="মা">মা</option>
+                        <option value="বাবা">বাবা</option>
+                        <option value="স্ত্রী/স্বামী">বউ বা স্বামী</option>
+                        <option value="ছেলে/মেয়ে">ছেলে বা মেয়ে</option>
+                    </select>
                 </div>
             </div>
 
@@ -196,7 +209,7 @@
             <div id="merchant-box">
                 <b style="color: #dc2626;">বিকাশ মার্চেন্ট নম্বর: ০১৮XXXXXXXX (Payment করবেন)</b><br><br>
                 <b style="color: #dc2626;">নগদ মার্চেন্ট নম্বর: ০১৭XXXXXXXX (Payment করবেন)</b><br><br>
-                <small id="dynamic-pay-instruction">* আপনার নিজের ১,০০০/- টাকা পেমেন্ট সফলভাবে সম্পন্ন হওয়ার পর নিচে TrxID দিন।</small>
+                <small id="dynamic-pay-instruction">* আপনার নিজের ১,০০০/- টাকা পেমেন্ট সফলভাবে সম্পন্ন হওয়ার পর নিচে TrxID দিন।</small>
             </div>
 
             <div class="form-group">
@@ -208,13 +221,13 @@
         </form>
     </div>
 
-    <div id="id-card-wrapper" style="display: none;">
+    <div id="id-card-wrapper" style="display: none; padding: 15px;">
         <div id="id-card">
             <div id="id-card-left">
                 <div class="card-school-info">
-                    <img src=https://cdn.corenexis.com/f/4OoVZGIUdki.jpeg class="card-logo" alt="logo">
+                    <img src="https://cdn.corenexis.com/f/4OoVZGIUdki.jpeg" class="card-logo" alt="logo">
                     <div>
-                        <h3 class="card-school-name">পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h3>
+                        <h3 class="card-school-name">পৈকখালী হাজী এস এন জামান মাধ্যমিক বিদ্যালয়</h3>
                         <p class="card-event-name">ঐতিহাসিক পুনর্মিলনী উৎসব - ২০২৭</p>
                     </div>
                 </div>
@@ -250,8 +263,8 @@
             <button class="print-btn" onclick="window.print()">প্রবেশপত্র ডাউনলোড/প্রিন্ট করুন</button>
         </div>
     </div>
+
     <script>
-        // আপনার সচল গুগল স্ক্রিপ্ট লিংক
         const scriptUrl = "https://script.google.com/macros/s/AKfycbxdxWAOszgi9Ghuwb76ceLVHZFKMwPVTrStF1niMS7saBiLTU2GDwBoQSPbUeV8Iver/exec";
 
         const eventDate = new Date("2027-03-12T09:00:00").getTime();
@@ -279,26 +292,33 @@
 
         function updatePaymentAmount() {
             const hasFamily = document.getElementById("hasFamily").value;
-            const fCountInput = document.getElementById("fCount").value;
+            const fRelation = document.getElementById("fRelation").value;
             let count = 0;
 
-            if (hasFamily === "yes" && fCountInput > 0) {
-                count = parseInt(fCountInput);
+            // সম্পর্ক সিলেক্ট করা হলে ১ জন অতিরিক্ত হিসেবে গণ্য হবে
+            if (hasFamily === "yes" && fRelation !== "") {
+                count = 1;
             }
 
             totalCalculatedAmount = 1000 + (count * 1000);
             
             const formattedAmount = totalCalculatedAmount.toLocaleString('bn-BD') + "/-";
             document.getElementById("subBtn").innerText = "👉 বিকাশে " + formattedAmount + " পেমেন্ট করুন";
-            document.getElementById("dynamic-pay-instruction").innerText = "* আপনার মোট " + formattedAmount + " টাকা পেমেন্ট সফলভাবে সম্পন্ন হওয়ার পর নিচে TrxID দিন।";
+            document.getElementById("dynamic-pay-instruction").innerText = "* আপনার মোট " + formattedAmount + " টাকা পেমেন্ট সফলভাবে সম্পন্ন হওয়ার পর নিচে TrxID দিন।";
         }
 
         function toggleFamily() {
             const val = document.getElementById("hasFamily").value;
-            document.getElementById("family-details").style.display = (val === "yes") ? "block" : "none";
-            if(val === "no") {
-                document.getElementById("fCount").value = "";
-                document.getElementById("fInfo").value = "";
+            const detailsBox = document.getElementById("family-details");
+            const fRelation = document.getElementById("fRelation");
+            
+            if(val === "yes") {
+                detailsBox.style.display = "block";
+                fRelation.required = true;
+            } else {
+                detailsBox.style.display = "none";
+                fRelation.required = false;
+                fRelation.value = "";
             }
             updatePaymentAmount();
         }
@@ -312,7 +332,9 @@
         function loadImage(e) {
             const reader = new FileReader();
             reader.onload = () => { finalImage = reader.result; };
-            reader.readAsDataURL(e.target.files[0]);
+            if(e.target.files[0]) {
+                reader.readAsDataURL(e.target.files[0]);
+            }
         }
 
         function handleRegistration(e) {
@@ -320,7 +342,7 @@
             
             const btn = document.getElementById("subBtn");
             btn.disabled = true;
-            btn.innerText = "প্রসেসিং হচ্ছে, দয়া করে অপেক্ষা করুন...";
+            btn.innerText = "প্রসেসিং হচ্ছে, দয়া করে অপেক্ষা করুন...";
 
             const name = document.getElementById("uName").value;
             const batch = document.getElementById("uBatch").value;
@@ -332,9 +354,8 @@
             const familyOpt = document.getElementById("hasFamily").value;
             
             let familyDetails = "নাই";
-            if(familyOpt === "yes") {
-                const count = document.getElementById("fCount").value || 0;
-                familyDetails = count + " জন (" + document.getElementById("fInfo").value + ")";
+            if(familyOpt === "yes" && document.getElementById("fRelation").value !== "") {
+                familyDetails = "১ জন - " + document.getElementById("fRelation").value;
             }
 
             const formData = {
@@ -356,7 +377,6 @@
                 body: JSON.stringify(formData)
             })
             .then(() => {
-                // --- আইডি কার্ডে নতুন UI অনুযায়ী ডেটা দেখানো ---
                 document.getElementById("res-name").innerText = name;
                 document.getElementById("res-phone").innerText = phone;
                 document.getElementById("res-batch").innerText = batch;
@@ -364,19 +384,17 @@
                 document.getElementById("res-group").innerText = group;
                 document.getElementById("res-size").innerText = size;
                 document.getElementById("res-family").innerText = familyDetails;
-                document.getElementById("res-trx").innerText = trxId;
-                document.getElementById("res-img").src = finalImage;
-                // ডাইনামিক টাকা বসানো হচ্ছে
+                document.getElementById("res-trx").innerText = "TrxID: " + trxId;
+                document.getElementById("res-img").src = finalImage || "https://via.placeholder.com/110";
                 document.getElementById("res-amount").innerText = totalCalculatedAmount.toLocaleString('bn-BD') + "/- টাকা";
-                document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" + trxId;
-                // --- এন্ড আইডি কার্ডে ডেটা দেখানো ---
+                document.getElementById("qr-code").src = "https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=" + encodeURIComponent(trxId);
 
-                // ফর্ম লুকিয়ে নতুন ডিজাইন লাইভ করা
                 document.getElementById("main-ui").style.display = "none";
                 document.getElementById("id-card-wrapper").style.display = "block";
+                window.scrollTo(0, 0);
             })
             .catch(err => {
-                alert("দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন!");
+                alert("দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন!");
                 btn.disabled = false;
                 updatePaymentAmount();
                 console.error(err);
