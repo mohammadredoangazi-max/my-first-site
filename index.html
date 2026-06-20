@@ -46,6 +46,11 @@
         .size-btn { background: #fff; color: #000; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 4px; }
         .size-btn input { width: auto; cursor: pointer; margin: 0; }
 
+        /* চেকবক্স স্টাইল */
+        .family-checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; color: #fff; font-size: 15px; }
+        .checkbox-label input { width: 20px; height: 20px; cursor: pointer; margin: 0; }
+
         .pay-info-btn { width: 100%; background: #dc2626; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px; font-size: 15px; text-transform: uppercase; }
         #merchant-box { display: none; background: #fff; color: #000; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 6px solid #dc2626; font-size: 14px; }
 
@@ -54,7 +59,7 @@
 
         #family-details { display: none; background: rgba(255,255,255,0.08); padding: 15px; border-radius: 10px; margin-top: 10px; border: 1px dashed rgba(255,255,255,0.2); }
 
-        /* --- আইডি কার্ড স্টাইল --- */
+        /* --- আইডিカード স্টাইল --- */
         #id-card { max-width: 700px; margin: 40px auto; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); background: white; color: black; display: flex; border: 3px solid #16a34a; }
         #id-card-left { flex: 2; padding: 25px; text-align: left; position: relative; }
         #id-card-right { flex: 1; background: #166534; padding: 25px; text-align: center; color: white; border-left: 2px dashed rgba(255,255,255,0.3); display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -187,20 +192,17 @@
             </div>
 
             <div id="family-details">
-                <div class="form-group">
-                    <label>পারিবারিক সম্পর্ক সিলেক্ট করুন *</label>
-                    <select id="fRelation" onchange="updatePaymentAmount()">
-                        <option value="">সম্পর্ক নির্ধারণ করুন</option>
-                        <option value="মা">মা</option>
-                        <option value="বাবা">বাবা</option>
-                        <option value="স্ত্রী/স্বামী">বউ বা স্বামী</option>
-                        <option value="ছেলে/মেয়ে">ছেলে বা মেয়ে</option>
-                    </select>
+                <label>কারা কারা আসবেন সিলেক্ট করুন (একের অধিক সিলেক্ট করতে পারবেন) *</label>
+                <div class="family-checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="মা" onchange="updatePaymentAmount()"> মা</label>
+                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="বাবা" onchange="updatePaymentAmount()"> বাবা</label>
+                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="স্ত্রী/স্বামী" onchange="updatePaymentAmount()"> বউ বা স্বামী</label>
+                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="ছেলে/মেয়ে" onchange="updatePaymentAmount()"> ছেলে বা মেয়ে</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>নিজের ছবি (সর্বোচ্চ ৩ মেগাবাইট) *</label>
+                <label>নিজের ছবি (সর্বোচ্চ ৩ মেগাবایت) *</label>
                 <input type="file" id="uPhoto" accept="image/*" required onchange="loadImage(event)">
             </div>
 
@@ -292,12 +294,11 @@
 
         function updatePaymentAmount() {
             const hasFamily = document.getElementById("hasFamily").value;
-            const fRelation = document.getElementById("fRelation").value;
             let count = 0;
 
-            // সম্পর্ক সিলেক্ট করা হলে ১ জন অতিরিক্ত হিসেবে গণ্য হবে
-            if (hasFamily === "yes" && fRelation !== "") {
-                count = 1;
+            if (hasFamily === "yes") {
+                const checkedBoxes = document.querySelectorAll('input[name="fRelations"]:checked');
+                count = checkedBoxes.length;
             }
 
             totalCalculatedAmount = 1000 + (count * 1000);
@@ -310,15 +311,13 @@
         function toggleFamily() {
             const val = document.getElementById("hasFamily").value;
             const detailsBox = document.getElementById("family-details");
-            const fRelation = document.getElementById("fRelation");
+            const checkboxes = document.querySelectorAll('input[name="fRelations"]');
             
             if(val === "yes") {
                 detailsBox.style.display = "block";
-                fRelation.required = true;
             } else {
                 detailsBox.style.display = "none";
-                fRelation.required = false;
-                fRelation.value = "";
+                checkboxes.forEach(cb => cb.checked = false); // রিমোভ বা ক্লিয়ার করা
             }
             updatePaymentAmount();
         }
@@ -340,6 +339,14 @@
         function handleRegistration(e) {
             e.preventDefault();
             
+            const hasFamily = document.getElementById("hasFamily").value;
+            const checkedBoxes = document.querySelectorAll('input[name="fRelations"]:checked');
+            
+            if (hasFamily === "yes" && checkedBoxes.length === 0) {
+                alert("দয়া করে কমপক্ষে একটি পারিবারিক সম্পর্ক সিলেক্ট করুন অথবা অপশনটি 'না' করে দিন।");
+                return;
+            }
+
             const btn = document.getElementById("subBtn");
             btn.disabled = true;
             btn.innerText = "প্রসেসিং হচ্ছে, দয়া করে অপেক্ষা করুন...";
@@ -351,11 +358,12 @@
             const phone = document.getElementById("uPhone").value;
             const trxId = document.getElementById("trx").value;
             const size = document.querySelector('input[name="tSize"]:checked').value;
-            const familyOpt = document.getElementById("hasFamily").value;
             
             let familyDetails = "নাই";
-            if(familyOpt === "yes" && document.getElementById("fRelation").value !== "") {
-                familyDetails = "১ জন - " + document.getElementById("fRelation").value;
+            if(hasFamily === "yes") {
+                let relationsArray = [];
+                checkedBoxes.forEach(cb => relationsArray.push(cb.value));
+                familyDetails = checkedBoxes.length + " জন (" + relationsArray.join(", ") + ")";
             }
 
             const formData = {
