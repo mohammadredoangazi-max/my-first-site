@@ -46,10 +46,15 @@
         .size-btn { background: #fff; color: #000; padding: 8px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 4px; }
         .size-btn input { width: auto; cursor: pointer; margin: 0; }
 
-        /* চেকবক্স স্টাইল */
+        /* চেকবক্স ও চাইল্ড কাউন্টার স্টাইল */
         .family-checkbox-group { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        .checkbox-label { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; color: #fff; font-size: 15px; }
+        .checkbox-row { display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .checkbox-label { display: flex; align-items: center; gap: 10px; cursor: pointer; color: #fff; font-size: 15px; flex-grow: 1; margin: 0; }
         .checkbox-label input { width: 20px; height: 20px; cursor: pointer; margin: 0; }
+        
+        .child-count-box { display: none; align-items: center; gap: 5px; }
+        .child-count-box span { font-size: 13px; color: #a7f3d0; }
+        .child-count-box input { width: 60px; padding: 5px; text-align: center; font-size: 14px; border-radius: 4px; border: none; }
 
         .pay-info-btn { width: 100%; background: #dc2626; color: white; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 15px; font-size: 15px; text-transform: uppercase; }
         #merchant-box { display: none; background: #fff; color: #000; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 6px solid #dc2626; font-size: 14px; }
@@ -194,11 +199,27 @@
             <div id="family-details">
                 <label>কারা কারা আসবেন সিলেক্ট করুন (একের অধিক সিলেক্ট করতে পারবেন) *</label>
                 <div class="family-checkbox-group">
-                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="মা" onchange="updatePaymentAmount()"> মা</label>
-                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="বাবা" onchange="updatePaymentAmount()"> বাবা</label>
-                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="স্ত্রী" onchange="updatePaymentAmount()"> স্ত্রী </label>
-                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="স্বামী" onchange="updatePaymentAmount()"> স্বামী</label>
-                    <label class="checkbox-label"><input type="checkbox" name="fRelations" value="ছেলে/মেয়ে" onchange="updatePaymentAmount()"> ছেলে বা মেয়ে</label>
+                    <div class="checkbox-row">
+                        <label class="checkbox-label"><input type="checkbox" name="fRelations" value="মা" onchange="updatePaymentAmount()"> মা</label>
+                    </div>
+                    <div class="checkbox-row">
+                        <label class="checkbox-label"><input type="checkbox" name="fRelations" value="বাবা" onchange="updatePaymentAmount()"> বাবা</label>
+                    </div>
+                    <div class="checkbox-row">
+                        <label class="checkbox-label"><input type="checkbox" name="fRelations" value="স্ত্রী" onchange="updatePaymentAmount()"> স্ত্রী (বউ)</label>
+                    </div>
+                    <div class="checkbox-row">
+                        <label class="checkbox-label"><input type="checkbox" name="fRelations" value="স্বামী" onchange="updatePaymentAmount()"> স্বামী</label>
+                    </div>
+                    <div class="checkbox-row">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="childCheck" name="fRelations" value="ছেলে/মেয়ে" onchange="toggleChildCount()"> ছেলে বা মেয়ে
+                        </label>
+                        <div class="child-count-box" id="childCountContainer">
+                            <span>সংখ্যা:</span>
+                            <input type="number" id="childCount" min="1" max="10" value="1" oninput="updatePaymentAmount()">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -253,7 +274,7 @@
             </div>
 
             <div id="id-card-right">
-                <h4 class="right-header">গেট পাস</h4>
+                <h4 class="right-header">ゲートパス (গেট পাস)</h4>
                 <div class="user-photo-box">
                     <img id="res-img" class="user-photo-card" src="" alt="Photo">
                 </div>
@@ -293,13 +314,36 @@
 
         let totalCalculatedAmount = 1000;
 
+        function toggleChildCount() {
+            const childCheck = document.getElementById("childCheck");
+            const container = document.getElementById("childCountContainer");
+            if (childCheck.checked) {
+                container.style.display = "flex";
+            } else {
+                container.style.display = "none";
+                document.getElementById("childCount").value = "1";
+            }
+            updatePaymentAmount();
+        }
+
         function updatePaymentAmount() {
             const hasFamily = document.getElementById("hasFamily").value;
             let count = 0;
 
             if (hasFamily === "yes") {
+                // সব সাধারণ চেক করা বক্স গণনা করি (মা, বাবা, স্ত্রী, স্বামী)
                 const checkedBoxes = document.querySelectorAll('input[name="fRelations"]:checked');
-                count = checkedBoxes.length;
+                
+                checkedBoxes.forEach(cb => {
+                    if (cb.id === "childCheck") {
+                        // যদি সন্তান চেক করা থাকে, তবে ইনপুট বক্সের সংখ্যা যোগ হবে
+                        const childNum = parseInt(document.getElementById("childCount").value) || 1;
+                        count += childNum;
+                    } else {
+                        // বাকিদের জন্য ১ জন করে
+                        count += 1;
+                    }
+                });
             }
 
             totalCalculatedAmount = 1000 + (count * 1000);
@@ -319,6 +363,8 @@
             } else {
                 detailsBox.style.display = "none";
                 checkboxes.forEach(cb => cb.checked = false);
+                document.getElementById("childCountContainer").style.display = "none";
+                document.getElementById("childCount").value = "1";
             }
             updatePaymentAmount();
         }
@@ -361,10 +407,20 @@
             const size = document.querySelector('input[name="tSize"]:checked').value;
             
             let familyDetails = "নাই";
+            let totalGuests = 0;
             if(hasFamily === "yes") {
                 let relationsArray = [];
-                checkedBoxes.forEach(cb => relationsArray.push(cb.value));
-                familyDetails = checkedBoxes.length + " জন (" + relationsArray.join(", ") + ")";
+                checkedBoxes.forEach(cb => {
+                    if (cb.id === "childCheck") {
+                        const childNum = document.getElementById("childCount").value || 1;
+                        relationsArray.push("ছেলে/মেয়ে (" + childNum + " জন)");
+                        totalGuests += parseInt(childNum);
+                    } else {
+                        relationsArray.push(cb.value);
+                        totalGuests += 1;
+                    }
+                });
+                familyDetails = totalGuests + " জন (" + relationsArray.join(", ") + ")";
             }
 
             const formData = {
